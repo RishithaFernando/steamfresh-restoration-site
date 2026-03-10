@@ -880,6 +880,11 @@
     transition: all 0.2s ease;
 }
 
+.form-group select option {
+    background-color: var(--ink-80);
+    color: var(--white);
+}
+
 .form-group input::placeholder,
 .form-group textarea::placeholder {
     color: rgba(255, 255, 255, 0.3);

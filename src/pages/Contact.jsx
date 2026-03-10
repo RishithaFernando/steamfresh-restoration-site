@@ -1,8 +1,16 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
+import SuccessModal from '../components/SuccessModal';
 import './Contact.css';
 
 export default function Contact() {
+    const [modalConfig, setModalConfig] = useState({
+        isOpen: false,
+        message: '',
+        submessage: '',
+        redirectUrl: ''
+    });
+
     useEffect(() => {
         // Scroll reveal
         const observer = new IntersectionObserver((entries) => {
@@ -16,6 +24,37 @@ export default function Contact() {
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         return () => observer.disconnect();
     }, []);
+
+    const handleContactSubmit = (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+
+        const name = formData.get('user_name');
+        const phone = formData.get('user_phone');
+        const email = formData.get('user_email');
+        const suburb = formData.get('user_suburb');
+        const service = formData.get('service_required');
+        const message = formData.get('message');
+
+        const whatsappMessage = `*New Contact Message*%0A%0A` +
+            `*Name:* ${name}%0A` +
+            `*Phone:* ${phone}%0A` +
+            `*Email:* ${email}%0A` +
+            `*Suburb:* ${suburb}%0A` +
+            `*Service:* ${service}%0A` +
+            `*Message:* ${message}`;
+
+        const whatsappUrl = `https://wa.me/61413943154?text=${whatsappMessage}`;
+
+        setModalConfig({
+            isOpen: true,
+            message: "Message Sent!",
+            submessage: "Your message has been received. Click below to continue to WhatsApp and chat with our team directly.",
+            redirectUrl: whatsappUrl
+        });
+
+        e.target.reset();
+    };
 
     return (
         <div className="contact-page bg-ice">
@@ -87,30 +126,30 @@ export default function Contact() {
                         {/* RIGHT COLUMN - FORM */}
                         <div className="contact-form-side bg-white">
                             <h2 className="cf-title">Send a Message</h2>
-                            <form className="quote-form-light" onSubmit={(e) => { e.preventDefault(); alert("Message Sent!"); }}>
+                            <form className="quote-form-light" onSubmit={handleContactSubmit}>
                                 <div className="form-group-light">
                                     <label>Full Name</label>
-                                    <input type="text" required placeholder="John Doe" />
+                                    <input type="text" name="user_name" required placeholder="John Doe" />
                                 </div>
 
                                 <div className="form-group-light">
                                     <label>Phone Number</label>
-                                    <input type="tel" required placeholder="0400 000 000" />
+                                    <input type="tel" name="user_phone" required placeholder="0400 000 000" />
                                 </div>
 
                                 <div className="form-group-light">
                                     <label>Email Address</label>
-                                    <input type="email" required placeholder="john@example.com" />
+                                    <input type="email" name="user_email" required placeholder="john@example.com" />
                                 </div>
 
                                 <div className="form-group-light">
                                     <label>Suburb</label>
-                                    <input type="text" required placeholder="e.g. Richmond" />
+                                    <input type="text" name="user_suburb" required placeholder="e.g. Richmond" />
                                 </div>
 
                                 <div className="form-group-light full-width">
                                     <label>Service Required</label>
-                                    <select required defaultValue="">
+                                    <select name="service_required" required defaultValue="">
                                         <option value="" disabled>Select a service...</option>
                                         <option value="flood">Flood Damage Restoration</option>
                                         <option value="water">Water Damage Restoration</option>
@@ -124,7 +163,7 @@ export default function Contact() {
 
                                 <div className="form-group-light full-width">
                                     <label>Description</label>
-                                    <textarea rows="5" placeholder="How can we help you?" required></textarea>
+                                    <textarea name="message" rows="5" placeholder="How can we help you?" required></textarea>
                                 </div>
 
                                 <button type="submit" className="button-primary submit-btn">Send Message →</button>
@@ -155,6 +194,14 @@ export default function Contact() {
                     </div>
                 </div>
             </section>
+
+            <SuccessModal
+                isOpen={modalConfig.isOpen}
+                onClose={() => setModalConfig({ ...modalConfig, isOpen: false })}
+                message={modalConfig.message}
+                submessage={modalConfig.submessage}
+                redirectUrl={modalConfig.redirectUrl}
+            />
 
         </div>
     );

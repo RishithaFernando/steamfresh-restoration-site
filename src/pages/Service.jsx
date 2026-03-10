@@ -1,6 +1,7 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import SuccessModal from '../components/SuccessModal';
 import './Service.css';
 
 const allServicesData = [
@@ -28,6 +29,12 @@ export default function Service({
     process
 }) {
     const navigate = useNavigate();
+    const [modalConfig, setModalConfig] = useState({
+        isOpen: false,
+        message: '',
+        submessage: '',
+        redirectUrl: ''
+    });
 
     useEffect(() => {
         const observer = new IntersectionObserver((entries) => {
@@ -151,28 +158,55 @@ export default function Service({
                 <div className="container text-center reveal">
                     <h2 className="section-title text-white" style={{ textAlign: 'center', marginBottom: '48px' }}>Request a Free Quote</h2>
                     <div className="sq-form-wrapper">
-                        <form className="quote-form bg-ink-80 text-left" onSubmit={(e) => { e.preventDefault(); alert("Quote Request Submitted Successfully!"); }}>
+                        <form className="quote-form bg-ink-80 text-left" onSubmit={(e) => {
+                            e.preventDefault();
+                            const formData = new FormData(e.target);
+                            const name = formData.get('user_name');
+                            const phone = formData.get('user_phone');
+                            const email = formData.get('user_email');
+                            const suburb = formData.get('user_suburb');
+                            const service = formData.get('service_required');
+                            const message = formData.get('message');
+
+                            const whatsappMessage = `*New Quote Request (${title})*%0A%0A` +
+                                `*Name:* ${name}%0A` +
+                                `*Phone:* ${phone}%0A` +
+                                `*Email:* ${email}%0A` +
+                                `*Suburb:* ${suburb}%0A` +
+                                `*Service:* ${service}%0A` +
+                                `*Description:* ${message}`;
+
+                            const whatsappUrl = `https://wa.me/61413943154?text=${whatsappMessage}`;
+
+                            setModalConfig({
+                                isOpen: true,
+                                message: "Quote Request Sent!",
+                                submessage: "We've received your request for " + title + ". Click below to continue to WhatsApp and chat with our team directly.",
+                                redirectUrl: whatsappUrl
+                            });
+                            e.target.reset();
+                        }}>
                             <div className="form-grid">
                                 <div className="form-group">
                                     <label>Full Name</label>
-                                    <input type="text" required placeholder="John Doe" />
+                                    <input type="text" name="user_name" required placeholder="John Doe" />
                                 </div>
                                 <div className="form-group">
                                     <label>Phone Number</label>
-                                    <input type="tel" required placeholder="0400 000 000" />
+                                    <input type="tel" name="user_phone" required placeholder="0400 000 000" />
                                 </div>
                                 <div className="form-group">
                                     <label>Email Address</label>
-                                    <input type="email" required placeholder="john@example.com" />
+                                    <input type="email" name="user_email" required placeholder="john@example.com" />
                                 </div>
                                 <div className="form-group">
                                     <label>Suburb</label>
-                                    <input type="text" required placeholder="e.g. Richmond" />
+                                    <input type="text" name="user_suburb" required placeholder="e.g. Richmond" />
                                 </div>
                             </div>
                             <div className="form-group full-width">
                                 <label>Service Required</label>
-                                <select required defaultValue={serviceId}>
+                                <select name="service_required" required defaultValue={serviceId}>
                                     <option value="flood-restoration">Flood Damage Restoration</option>
                                     <option value="water-damage">Water Damage Restoration</option>
                                     <option value="wet-carpet">Wet Carpet Restoration</option>
@@ -183,7 +217,7 @@ export default function Service({
                             </div>
                             <div className="form-group full-width">
                                 <label>Description of Issue</label>
-                                <textarea rows="4" placeholder="Briefly describe what happened..." required></textarea>
+                                <textarea name="message" rows="4" placeholder="Briefly describe what happened..." required></textarea>
                             </div>
                             <button type="submit" className="button-primary submit-btn">Request Free Quote →</button>
                         </form>
@@ -217,6 +251,14 @@ export default function Service({
                     </a>
                 </div>
             </section>
+
+            <SuccessModal
+                isOpen={modalConfig.isOpen}
+                onClose={() => setModalConfig({ ...modalConfig, isOpen: false })}
+                message={modalConfig.message}
+                submessage={modalConfig.submessage}
+                redirectUrl={modalConfig.redirectUrl}
+            />
 
         </div>
     );
