@@ -1,0 +1,40 @@
+/* About.css */
+.about-why-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+}
+
+@media (min-width: 768px) {
+    .about-why-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.a-feature-card {
+    padding: 40px;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.a-feature-card:hover {
+    transform: translateY(-8px);
+}
+
+.af-icon {
+    font-size: 40px;
+    margin-bottom: 24px;
+}
+
+.af-title {
+    font-size: 24px;
+    margin-bottom: 16px;
+}
+
+.team-card {
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.05);
+    border-radius: 32px;
+    padding: 64px 5%;
+    border: 1px solid var(--border);
+}

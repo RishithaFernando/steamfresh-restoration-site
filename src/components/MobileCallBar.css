@@ -1,0 +1,67 @@
+.mobile-call-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--ink);
+    padding: 16px 20px;
+    z-index: 998;
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+    display: flex;
+    justify-content: center;
+}
+
+.mobile-call-bar.visible {
+    transform: translateY(0);
+}
+
+.mobile-call-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+}
+
+.mobile-call-text {
+    color: var(--white);
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.mobile-call-button {
+    background-color: #ef4444;
+    /* red */
+    color: var(--white);
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 700;
+    animation: pulse-ring 2s infinite;
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+    animation: pulse-red-ring 2s infinite;
+}
+
+@keyframes pulse-red-ring {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+    }
+
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+    }
+
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+    }
+}
+
+@media (min-width: 768px) {
+    .mobile-call-bar {
+        display: none;
+    }
+}

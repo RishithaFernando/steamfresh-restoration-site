@@ -1,0 +1,48 @@
+/* ServiceAreas.css */
+.suburb-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+@media (min-width: 768px) {
+    .suburb-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .suburb-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+    }
+}
+
+.suburb-card {
+    background-color: var(--white);
+    padding: 24px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid var(--border);
+    transition: all 0.2s ease;
+}
+
+.suburb-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(8, 145, 178, 0.1);
+    border-color: var(--red-pale);
+}
+
+.sc-name {
+    font-weight: 600;
+    color: var(--ink-80);
+    font-size: 16px;
+}
+
+.suburb-card:hover .sc-name {
+    color: var(--red);
+}

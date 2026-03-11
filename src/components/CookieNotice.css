@@ -1,0 +1,53 @@
+/* CookieNotice.css */
+.cookie-notice {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--ink);
+    color: var(--white);
+    padding: 16px 5%;
+    z-index: 1000;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.2);
+    animation: slideUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+.cn-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    text-align: center;
+}
+
+.cn-content p {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--ink-20);
+    margin: 0;
+    max-width: 800px;
+}
+
+.cn-btn {
+    padding: 10px 24px;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+    .cn-content {
+        flex-direction: row;
+        text-align: left;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}

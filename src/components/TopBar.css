@@ -1,0 +1,39 @@
+/* TopBar.css */
+.top-bar {
+    padding: 8px 5%;
+    font-size: 13px;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    letter-spacing: 0.5px;
+}
+
+.top-bar-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.tb-left,
+.tb-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tb-right a {
+    transition: opacity 0.2s ease;
+}
+
+.tb-right a:hover {
+    color: var(--red-lt);
+}
+
+@media (max-width: 640px) {
+    .top-bar-flex {
+        justify-content: center;
+        flex-direction: column;
+        gap: 8px;
+    }
+}

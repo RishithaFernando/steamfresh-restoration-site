@@ -1,0 +1,130 @@
+/* Footer CTA removed, leaving top spacing */
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+}
+
+@media (min-width: 768px) {
+    .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .footer-grid {
+        grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
+    }
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.footer-logo-text {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--white);
+    /* Forces white color against dark background */
+    letter-spacing: -0.5px;
+}
+
+.footer-tagline {
+    margin-bottom: 24px;
+    line-height: 1.7;
+    font-size: 15px;
+}
+
+.footer-title {
+    font-size: 20px;
+    margin-bottom: 24px;
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.footer-links a {
+    color: var(--ink-40);
+    font-weight: 500;
+}
+
+.footer-links a:hover {
+    color: var(--red);
+}
+
+.footer-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.footer-contact li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.contact-icon {
+    margin-top: 2px;
+}
+
+.hover-white:hover {
+    color: var(--white);
+}
+
+.footer-bottom {
+    padding: 24px 5%;
+}
+
+.footer-bottom-flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+}
+
+@media (min-width: 768px) {
+    .footer-bottom-flex {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+    }
+}
+
+/* Footer Enhancements */
+.footer-badges {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 32px;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--ink-80);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--white);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    width: fit-content;
+}
+
+.footer-socials {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+}
